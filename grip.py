@@ -12,7 +12,7 @@ def run_pipgrip_tree(source, out_txt):
         print("Detected : requirements.txt")
         cmd = "pipgrip --tree -r requirements.txt > " + out_txt
     else:
-        print("❌ Invalid source.")
+        print("Invalid source.")
         sys.exit(1)
     subprocess.run(cmd, shell=True, check=True)
     return out_txt
@@ -91,7 +91,7 @@ if __name__ == "__main__":
     has_requirements = os.path.exists("requirements.txt")
 
     if not has_pyproject and not has_requirements:
-        print("❌ No pyproject.toml or requirements.txt found.")
+        print("No pyproject.toml or requirements.txt found.")
         sys.exit(1)
 
     if has_pyproject:
@@ -99,11 +99,12 @@ if __name__ == "__main__":
         result = parse_pip_dependencies(deps_txt)
         with open("py_dep.json", "w", encoding="utf-8") as f:
             json.dump(result, f, indent=2)
-        print("✅ py_dep.json saved.")
+        print("py_dep.json saved.")
 
     if has_requirements:
         deps_txt = run_pipgrip_tree("requirements", "req_deps.txt")
         result = parse_pip_dependencies(deps_txt)
         with open("req_dep.json", "w", encoding="utf-8") as f:
             json.dump(result, f, indent=2)
-        print("✅ req_dep.json saved.")
+        print("req_dep.json saved.")
+
