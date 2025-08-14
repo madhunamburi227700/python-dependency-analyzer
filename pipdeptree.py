@@ -13,7 +13,7 @@ deps_output = project_dir / "depsssssssss.json"
 # Detect OS
 def get_os_type():
     system = platform.system()
-    print(f"🔍 Detected OS: {system}")  # Added print statement
+    print(f"Detected OS: {system}")
     if system == "Windows":
         return "windows"
     elif system == "Darwin":
@@ -32,30 +32,30 @@ def get_pipdeptree_cmd(os_type):
 
 # Create virtual environment
 def create_venv():
-    print("🚀 Creating virtual environment...")  # Added print statement
+    print("Creating virtual environment")
     subprocess.run(["uv", "venv"], check=True)
 
 # Install dependencies
 def install_dependencies():
     if pyproject_file.exists():
-        print("📂 Detected pyproject.toml. Proceeding with installation...")  # Added print statement
-        print("📦 Installing from pyproject.toml...")
+        print("Detected pyproject.toml. Proceeding with installation...")
+        print("Installing from pyproject.toml...")
         subprocess.run(["uv", "pip", "install", "."], check=True)
     if requirements_file.exists():
-        print("📂 Detected requirements.txt. Proceeding with installation...")  # Added print statement
-        print("📦 Installing from requirements.txt...")
+        print("Detected requirements.txt. Proceeding with installation...")
+        print("Installing from requirements.txt...")
         subprocess.run(["uv", "pip", "install", "-r", str(requirements_file)], check=True)
     if not pyproject_file.exists() and not requirements_file.exists():
-        print("⚠️ No pyproject.toml or requirements.txt found. Skipping dependency installation.")
+        print("No pyproject.toml or requirements.txt found. Skipping dependency installation.")
 
 # Install pipdeptree
 def install_pipdeptree():
-    print("🔧 Installing pipdeptree...")  # Added print statement
+    print("Installing pipdeptree...")
     subprocess.run(["uv", "pip", "install", "pipdeptree"], check=True)
 
 # Export dependency tree
 def export_deps(os_type):
-    print("📤 Exporting dependency tree...")  # Added print statement
+    print("Exporting dependency tree...")
     cmd = get_pipdeptree_cmd(os_type) + ["--json-tree"]
     with deps_output.open("w") as f:
         subprocess.run(cmd, stdout=f, check=True)
@@ -63,13 +63,13 @@ def export_deps(os_type):
 # Cleanup virtual environment
 def cleanup_venv():
     if venv_dir.exists():
-        print("🧹 Removing virtual environment...")
+        print("Removing virtual environment...")
         shutil.rmtree(venv_dir)
-        print("🗑️ .venv directory removed.")
+        print(".venv directory removed.")
 
 # OS-specific logic dispatcher
 def run_for_windows():
-    print("🖥️ Running on Windows...")
+    print("Running on Windows...")
     create_venv()
     install_dependencies()
     install_pipdeptree()
@@ -77,7 +77,7 @@ def run_for_windows():
     cleanup_venv()
 
 def run_for_linux():
-    print("🐧 Running on Linux...")
+    print("Running on Linux...")
     create_venv()
     install_dependencies()
     install_pipdeptree()
@@ -85,7 +85,7 @@ def run_for_linux():
     cleanup_venv()
 
 def run_for_macos():
-    print("🍎 Running on macOS...")
+    print("Running on macOS...")
     create_venv()
     install_dependencies()
     install_pipdeptree()
@@ -94,7 +94,7 @@ def run_for_macos():
 
 # Main dispatcher
 def main():
-    print("🏁 Starting setup...")  # Added print statement
+    print("Starting setup...")
     os_type = get_os_type()
     if os_type == "windows":
         run_for_windows()
@@ -103,7 +103,8 @@ def main():
     elif os_type == "macos":
         run_for_macos()
 
-    print("✅ Setup complete. Dependency tree saved to depsssssssss.json.")
+    print("Setup complete. Dependency tree saved to depsssssssss.json.")
 
 if __name__ == "__main__":
     main()
+
